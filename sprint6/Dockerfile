@@ -2,7 +2,7 @@ FROM alpine
 
 RUN apk --no-cache add curl
 
-FROM nginx
+FROM public.ecr.aws/nginx/nginx:latest
 
 COPY ./index.html /usr/share/nginx/html/index.html
 
