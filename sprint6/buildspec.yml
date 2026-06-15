@@ -14,7 +14,7 @@ phases:
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
   build:
     commands:
-      - docker build -t ${ECR_REPO_NAME}:latest .
+      - docker build -t ${ECR_REPO_NAME}:latest -f sprint6/Dockerfile sprint6/
   post_build:
     commands:
       - docker tag ${ECR_REPO_NAME}:latest ${ECR_IMAGE_URI}
