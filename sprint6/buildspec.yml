@@ -15,7 +15,13 @@ phases:
   build:
     commands:
       - docker build -t ${ECR_REPO_NAME}:latest -f sprint6/Dockerfile sprint6/
-  post_build:
+  post_build:  
     commands:
       - docker tag ${ECR_REPO_NAME}:latest ${ECR_IMAGE_URI}
       - docker push ${ECR_IMAGE_URI}
+      - printf '[{"name":"cth1-container","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+        
+artifacts:
+  files:
+    - imagedefinitions.json
+  
