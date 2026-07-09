@@ -3,7 +3,7 @@ env:
   variables:
     ECR_REPO_NAME: "cth1-repo"
 phases:
-  pre_build:
+  pre_build: 
     commands:
       - echo "hello"
       
@@ -15,13 +15,16 @@ phases:
   build:
     commands:
       - docker build -t ${ECR_REPO_NAME}:latest -f sprint6/Dockerfile sprint6/
+  
   post_build:  
     commands:
       - docker tag ${ECR_REPO_NAME}:latest ${ECR_IMAGE_URI}
       - docker push ${ECR_IMAGE_URI}
-      - printf '[{"name":"cth1-container","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - printf '{"ImageURI":"%s"}' ${ECR_IMAGE_URI} > imageDetail.json
         
 artifacts:
   files:
     - imagedefinitions.json
-  
+    - appspec.yml
+    - taskdef.json
+    - imageDetail.json
